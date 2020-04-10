@@ -16,17 +16,17 @@ class Header extends Component {
           backgroundColor: "#98c5e9",
           boxShadow: "none",
           padding: "10px 0",
-          borderBottom: "2px solid #00285e"
+          borderBottom: "2px solid #00285e",
         }}
       >
         <Toolbar
           style={{
-            display: "flex"
+            display: "flex",
           }}
         >
           <div
             style={{
-              flexGrow: 1
+              flexGrow: 1,
             }}
           >
             <div className="header_logo">
@@ -39,6 +39,9 @@ class Header extends Component {
           </Link>
           <Link to="/the_matches">
             <Button color="inherit">Matches</Button>
+          </Link>
+          <Link to="/sign_in">
+            <Button color="inherit">Login</Button>
           </Link>
         </Toolbar>
       </AppBar>
