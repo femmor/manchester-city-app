@@ -18,7 +18,7 @@ class Blocks extends Component {
         const matches = firebaseLooper(snapshot);
 
         this.setState({
-          matches: reverseArray(matches),
+          matches: reverseArray(matches)
         });
       });
   }
