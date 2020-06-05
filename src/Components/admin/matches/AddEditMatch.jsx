@@ -209,9 +209,17 @@ class AddEditMatch extends Component {
         })
     }
 
-    submitForm = (e) => {
-        e.preventDefault();
-    };
+    successForm = (message) => {
+        this.setState({
+            formSuccess: message
+        })
+
+        setTimeout(() => {
+            this.setState({
+                formSuccess: ""
+            })
+        }, 2000);
+    }
 
     componentDidMount() {
         const matchId = this.props.match.params.id
@@ -243,6 +251,49 @@ class AddEditMatch extends Component {
         }
     }
     
+
+    submitForm = (e) => {
+        e.preventDefault();
+    
+        let dataToSubmit = {};
+        let formIsValid = true;
+    
+        for (let key in this.state.formData) {
+          dataToSubmit[key] = this.state.formData[key].value;
+          formIsValid = this.state.formData[key].valid && formIsValid;
+        }
+
+        this.state.teams.forEach(team => {
+            if (team.shortName === dataToSubmit.local) {
+                dataToSubmit["localThmb"] = team.thmb
+            }
+            if (team.shortName === dataToSubmit.away) {
+                dataToSubmit["awayThmb"] = team.thmb
+            }
+        })
+
+        if (formIsValid) {
+          if(this.state.formType === "Edit Match") {
+              // Edit Match
+              firebaseDB.ref(`matches/${this.state.matchId}`)
+              .update(dataToSubmit)
+              .then(() => {
+                this.successForm("Updated successfully!")
+              }).catch((e) => {
+                this.setState({
+                    formError: true,
+                });
+              })
+          } else {
+              // Add Match
+
+          }
+        } else {
+          this.setState({
+            formError: true,
+          });
+        }
+      };
 
     render() {
         return (
