@@ -56,6 +56,7 @@ class FileUploader extends Component {
             isUploading: false,
             fileUrl: "",
         })
+        this.props.resetImage()
     }
 
     render() {

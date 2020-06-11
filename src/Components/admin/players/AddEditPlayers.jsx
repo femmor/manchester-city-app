@@ -144,18 +144,28 @@ class AddEditPlayers extends Component {
         e.preventDefault();
     
         let dataToSubmit = {};
-        let formIsValid = true;
+        let formIsValid = true; 
     
         for (let key in this.state.formData) {
           dataToSubmit[key] = this.state.formData[key].value;
           formIsValid = this.state.formData[key].valid && formIsValid;
         }
 
-        
 
         if (formIsValid) {
-
             // Submit form
+            if (this.state.formType === "Edit player") {
+              firebasePlayers.push(dataToSubmit)
+              .then(() => {
+                this.props.history.push("/admin_players")
+              }).catch((e) => {
+                this.setState({
+                  formError: true
+                })
+              }) 
+            } else {
+
+            }
         } else {
           this.setState({
             formError: true,
@@ -165,7 +175,13 @@ class AddEditPlayers extends Component {
 
 
       resetImage = () => {
-
+        const newFormData = { ...this.state.formData }
+        newFormData["image"].value = ''
+        newFormData["image"].valid = false
+        this.setState({
+          defaultImg: '',
+          formData: newFormData
+        })
       }
 
       storeFilename = (filename) => {
@@ -175,9 +191,7 @@ class AddEditPlayers extends Component {
       }
 
       
-
     render() {
-      console.log(this.state.formData)
         return (
             <AdminLayout>
                 <div className="editplayers_dialog_wrapper">
