@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "./Hoc/Layout";
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 
 // PrivateRoutes
 import PrivateRoutes from "./Components/authRoutes/privateRoutes"
@@ -22,7 +22,7 @@ const Routes = (props) => {
   return (
     <Layout>
       <Switch>
-      <PrivateRoutes {...props} path="/admin_players/add_players" exact component={AddEditPlayers} />
+        <PrivateRoutes {...props} path="/admin_players/add_players" exact component={AddEditPlayers} />
         <PrivateRoutes {...props} path="/admin_players/edit_players/:id" exact component={AddEditPlayers} />
         <PrivateRoutes {...props} path="/admin_players" exact component={AdminPlayers} />
         <PrivateRoutes {...props} path="/admin_matches/add_match" exact component={AddEditMatch} />

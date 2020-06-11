@@ -9,7 +9,6 @@ class FileUploader extends Component {
         name: "",
         isUploading: false,
         fileUrl: "",
-
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -35,11 +34,27 @@ class FileUploader extends Component {
     }
 
     handleUploadSuccess = (filename) => {
-        console.log(filename)
-
         this.setState({
             name: filename,
             isUploading: false
+        })
+
+        firebase.storage().ref(this.props.dir)
+        .child(filename).getDownloadURL()
+        .then(url => {
+            this.setState({
+                fileUrl: url
+            })
+        })
+
+        this.props.filename(filename)
+    }
+
+    uploadAgain = () => {
+        this.setState({
+            name: "",
+            isUploading: false,
+            fileUrl: "",
         })
     }
 
@@ -56,9 +71,9 @@ class FileUploader extends Component {
                             name="image"
                             randomizeFilename
                             storageRef={firebase.storage().ref(this.props.dir)}
-                            onUploadStart={ this.onUploadStart }
-                            onUploadError={ this.onUploadError }
-                            onUploadSuccess={ this.onUploadSuccess }
+                            onUploadStart={ this.handleUploadStart }
+                            onUploadError={ this.handleUploadError }
+                            onUploadSuccess={ this.handleUploadSuccess }
                         />
                     </div>
                 : null}
@@ -75,6 +90,22 @@ class FileUploader extends Component {
                         />
                     </div>
                     :null}
+                    {
+                        this.state.fileUrl ? 
+                            <div className="image_upload_container">
+                                <img 
+                                    src={this.state.fileUrl} 
+                                    style={{
+                                        width: "100%"
+                                    }}
+                                    alt={this.state.name}
+                                />
+                                <div className="remove" onClick={this.uploadAgain}>
+                                    Remove
+                                </div>
+                            </div>
+                        :null
+                    }
             </div>
         );
     }
