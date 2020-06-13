@@ -10,6 +10,7 @@ import PublicRoutes from "./Components/authRoutes/publicRoutes"
 // Components
 import Home from "./Components/Home";
 import SignIn from "./Components/signin";
+import TheTeam from "./Components/the_team";
 
 // Admin Routes
 import Dashboard from "./Components/admin/Dashboard";
@@ -17,6 +18,7 @@ import AdminMatches from "./Components/admin/matches"
 import AddEditMatch from "./Components/admin/matches/AddEditMatch"
 import AddEditPlayers from "./Components/admin/players/AddEditPlayers";
 import AdminPlayers from "./Components/admin/players";
+
 
 const Routes = (props) => {
   return (
@@ -30,6 +32,7 @@ const Routes = (props) => {
         <PrivateRoutes {...props} path="/admin_matches" exact component={AdminMatches} />
         <PrivateRoutes {...props} path="/dashboard" exact component={Dashboard} />
         <PublicRoutes {...props} restricted={true} path="/sign_in" exact component={SignIn} />
+        <PublicRoutes {...props} restricted={false} path="/the_team" component={TheTeam} />
         <PublicRoutes {...props} restricted={false} path="/" exact component={Home} />
       </Switch>
     </Layout>
