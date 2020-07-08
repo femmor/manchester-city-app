@@ -75,6 +75,7 @@ class MatchesList extends Component {
                                     <div><strong>Date:</strong> {data.date}</div>
                                     <div><strong>Stadium:</strong> {data.stadium}</div>
                                     <div><strong>Referee:</strong> {data.referee}</div>
+
                                 </div>
                             </div>
                         ))}
